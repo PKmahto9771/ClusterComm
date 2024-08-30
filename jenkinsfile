@@ -65,7 +65,7 @@ pipeline {
                         sh '''
                         argocd login http://192.168.49.2:443 --username $ARGOCD_USER --password $ARGOCD_PASS --insecure
                         
-                        argocd app sync ClusterComm --insecure
+                        argocd app sync cluster-comm --insecure
                         '''
                     }
                 }
