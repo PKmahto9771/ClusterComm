@@ -20,8 +20,7 @@ export const SocketContextProvider = ({ children }) => {
 			// 		userId: authUser._id,
 			// 	},
 			// });
-			console.log(" I am there");
-			const socket = io("__backend_url__", {
+			const socket = io("http://localhost:5000", {
 				query: {
 					userId: authUser._id,
 				},

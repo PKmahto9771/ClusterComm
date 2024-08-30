@@ -8,12 +8,12 @@ export default defineConfig({
     port: 3000,        
     proxy: {
       '/api': {
-        target: 'http://chat-app-backend-service:5000', 
+        target: 'http://localhost:5000', 
         changeOrigin: true,
         secure: false,     
       },
 	    '/socket.io': {
-        target: 'htpp://chat-app-backend-service:5000',
+        target: 'http://localhost:5000',
         changeOrigin: true,
 		    ws:true,
         secure: false,

@@ -61,11 +61,11 @@ pipeline {
         stage('Deploy to Kubernetes') {
             steps {
                 script {
-                    withCredentials([usernamePassword(credentialsId: 'argocd-credentials', usernameVariable: 'ARGOCD_USER', passwordVariable: 'ARGOCD_PASS')]) {
+                    withCredentials([usernamePassword(credentialsId: 'argocd-creds', usernameVariable: 'ARGOCD_USER', passwordVariable: 'ARGOCD_PASS')]) {
                         sh '''
-                        argocd login 192.168.49.2:31876 --username $ARGOCD_USER --password $ARGOCD_PASS --insecure
+                        argocd login http://192.168.49.2:443 --username $ARGOCD_USER --password $ARGOCD_PASS --insecure
                         
-                        argocd app sync chat-cluster --insecure
+                        argocd app sync ClusterComm --insecure
                         '''
                     }
                 }
