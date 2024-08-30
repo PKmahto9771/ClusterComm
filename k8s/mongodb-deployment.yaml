@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongodb-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongodb
+  template:
+    metadata:
+      labels:
+        app: mongodb
+    spec:
+      containers:
+        - name: mongodb
+          image: mongo:latest
+          ports:
+            - containerPort: 27017
+          env:
+            - name: MONGO_INITDB_ROOT_USERNAME
+              value: root
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              value: example
+          resources:
+            limits:
+              memory: "1Gi"     # Maximum memory the container can use
+              cpu: "1000m"      # Maximum CPU the container can use (1000 millicores = 1 CPU core)
+            requests:
+              memory: "512Mi"   # Minimum memory the container is guaranteed
+              cpu: "500m"       # Minimum CPU the container is guaranteed (500 millicores = 0.5 CPU cores)
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb-service
+spec:
+  selector:
+    app: mongodb
+  ports:
+    - protocol: TCP
+      port: 27017
+      targetPort: 27017
+  type: ClusterIP

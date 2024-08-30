@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chat-app-frontend-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: chat-app-frontend
+  template:
+    metadata:
+      labels:
+        app: chat-app-frontend
+    spec:
+      containers:
+        - name: chat-app-frontend
+          image: pran1936/chat-app-frontend:1.0
+          ports:
+            - containerPort: 80
+          resources:
+            limits:
+              memory: "512Mi" 
+              cpu: "500m"         
+            requests:
+              memory: "256Mi"    
+              cpu: "250m"         
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: chat-app-frontend-service
+spec:
+  selector:
+    app: chat-app-frontend
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
+  type: NodePort
